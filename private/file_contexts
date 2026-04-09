@@ -159,6 +159,7 @@
 /dev/socket/aconfigd_system	u:object_r:aconfigd_socket:s0
 /dev/socket/dnsproxyd	u:object_r:dnsproxyd_socket:s0
 /dev/socket/dumpstate	u:object_r:dumpstate_socket:s0
+/dev/socket/aohp_container	u:object_r:aohp_container_socket:s0
 /dev/socket/fwmarkd	u:object_r:fwmarkd_socket:s0
 /dev/socket/lmkd        u:object_r:lmkd_socket:s0
 /dev/socket/logd	u:object_r:logd_socket:s0
@@ -277,6 +278,7 @@
 /system/bin/app_process64	u:object_r:zygote_exec:s0
 /system/bin/zygote_next	u:object_r:zygote_next_exec:s0
 /system/bin/servicemanager	u:object_r:servicemanager_exec:s0
+/system/bin/aohp-containerd	u:object_r:aohp_container_daemon_exec:s0
 /system/bin/surfaceflinger	u:object_r:surfaceflinger_exec:s0
 /system/bin/gpuservice	u:object_r:gpuservice_exec:s0
 /system/bin/bufferhubd	u:object_r:bufferhubd_exec:s0
@@ -591,6 +593,7 @@
 #
 /data		u:object_r:system_data_root_file:s0
 /data/(.*)?		u:object_r:system_data_file:s0
+/data/aohp(/.*)?	u:object_r:aohp_container_data_file:s0
 /data/userdata_exp\.[^/]+ u:object_r:exp_partition_data_file:s0
 /data/system/environ(/.*)? u:object_r:environ_system_data_file:s0
 /data/system/packages\.list u:object_r:packages_list_file:s0

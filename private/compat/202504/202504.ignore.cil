@@ -5,6 +5,7 @@
 (typeattribute new_objects)
 (typeattributeset new_objects
   ( new_objects
+    aohp_container_socket
     activity_structured_service
     gatekeeper_vendor_data_file
     hal_bluetooth_lpp_service

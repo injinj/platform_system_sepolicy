@@ -212,6 +212,8 @@ var (
 		"android.system.vold.IVold/default":                                   []string{"vold_native_service_fuzzer"},
 		"anomaly_detector":                                                    EXCEPTION_NO_FUZZER,
 		"ambient_context":                                                     EXCEPTION_NO_FUZZER,
+		"aohp_container":                                                      EXCEPTION_NO_FUZZER,
+		"aohp_virtual_display":                                                EXCEPTION_NO_FUZZER,
 		"app_binding":                                                         EXCEPTION_NO_FUZZER,
 		"app_function":                                                        EXCEPTION_NO_FUZZER,
 		"app_hibernation":                                                     EXCEPTION_NO_FUZZER,

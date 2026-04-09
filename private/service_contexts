@@ -202,6 +202,8 @@ ambient_context                           u:object_r:ambient_context_service:s0
 starting_at_board_api(202604, `
   anomaly_detector                        u:object_r:anomaly_detector_service:s0
 ')
+aohp_virtual_display                      u:object_r:aohp_virtual_display_service:s0
+aohp_container                            u:object_r:aohp_container_service:s0
 app_binding                               u:object_r:app_binding_service:s0
 app_function                              u:object_r:app_function_service:s0
 app_hibernation                           u:object_r:app_hibernation_service:s0

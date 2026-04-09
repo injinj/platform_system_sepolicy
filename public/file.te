@@ -547,6 +547,7 @@ type dnsproxyd_socket, file_type, coredomain_socket, mlstrustedobject;
 type dumpstate_socket, file_type, coredomain_socket;
 type fwmarkd_socket, file_type, coredomain_socket, mlstrustedobject;
 type lmkd_socket, file_type, coredomain_socket;
+type aohp_container_socket, file_type, coredomain_socket;
 type logd_socket, file_type, coredomain_socket, mlstrustedobject;
 type logdr_socket, file_type, coredomain_socket, mlstrustedobject;
 type logdw_socket, file_type, coredomain_socket, mlstrustedobject;

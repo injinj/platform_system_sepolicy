@@ -1,0 +1,77 @@
+###
+### aohp-containerd: native daemon providing chroot-based Linux container
+### environments for the AOHP agent app.
+###
+
+type aohp_container_daemon, domain, coredomain;
+type aohp_container_daemon_exec, exec_type, file_type, system_file_type;
+type aohp_container_data_file, file_type, data_file_type, core_data_file_type;
+
+init_daemon_domain(aohp_container_daemon)
+
+# apk/pip need real outbound TCP (HTTPS) and UDP (DNS via musl resolver); use the same
+# port labeling as netdomain — plain "port:tcp_socket name_connect" is not sufficient.
+net_domain(aohp_container_daemon)
+
+# Parent of /data/aohp is labeled system_data_file; without this, mkdir("/data/aohp") is
+# denied and container creation fails (env paths never get created).
+allow aohp_container_daemon system_data_file:dir create_dir_perms;
+file_type_auto_trans(aohp_container_daemon, system_data_file, aohp_container_data_file)
+
+# Core capabilities for chroot / namespace / mount / user switching.
+allow aohp_container_daemon self:capability {
+    sys_chroot sys_admin setuid setgid kill
+    dac_override dac_read_search fowner chown fsetid
+};
+
+# Process operations.
+allow aohp_container_daemon self:process { fork setexec sigchld sigkill sigstop signal };
+
+# Container data directory under /data/aohp/.
+allow aohp_container_daemon aohp_container_data_file:dir create_dir_perms;
+allow aohp_container_daemon aohp_container_data_file:file create_file_perms;
+allow aohp_container_daemon aohp_container_data_file:lnk_file create_file_perms;
+allow aohp_container_daemon aohp_container_data_file:sock_file create_file_perms;
+allow aohp_container_daemon aohp_container_data_file:fifo_file create_file_perms;
+
+# Execute binaries inside the container rootfs.
+allow aohp_container_daemon aohp_container_data_file:file { execute execute_no_trans };
+
+# Bind-mount targets live under /data/aohp/.../rootfs/* (aohp_container_data_file).
+allow aohp_container_daemon aohp_container_data_file:dir mounton;
+
+# After /dev is bound, paths under rootfs/dev/ may appear as tmpfs; repeat binds see proc/sysfs/device inodes.
+allow aohp_container_daemon tmpfs:dir mounton;
+allow aohp_container_daemon proc:dir mounton;
+allow aohp_container_daemon proc_type:dir mounton;
+allow aohp_container_daemon sysfs:dir mounton;
+allow aohp_container_daemon device:dir mounton;
+allow aohp_container_daemon fuse:dir mounton;
+
+# Mount operations (bind mount /proc, /dev, /sys, /sdcard into container rootfs).
+allow aohp_container_daemon proc:filesystem mount;
+allow aohp_container_daemon devpts:filesystem mount;
+allow aohp_container_daemon sysfs:filesystem mount;
+allow aohp_container_daemon tmpfs:filesystem mount;
+
+# Read rootfs templates from /system/etc/aohp/rootfs-templates/.
+allow aohp_container_daemon system_file:file r_file_perms;
+allow aohp_container_daemon system_file:dir r_dir_perms;
+
+# Access /sdcard (FUSE / sdcardfs): list, read, and create dirs/files (e.g. mkdir under /sdcard in chroot).
+allow aohp_container_daemon { sdcard_type fuse }:dir { r_dir_perms create_dir_perms };
+allow aohp_container_daemon { sdcard_type fuse }:file { r_file_perms create_file_perms };
+allow aohp_container_daemon mnt_user_file:dir r_dir_perms;
+allow aohp_container_daemon mnt_user_file:lnk_file r_file_perms;
+
+# PTY for interactive shell sessions.
+allow aohp_container_daemon devpts:chr_file { open read write ioctl getattr setattr };
+
+# Socket: init creates /dev/socket/aohp_container for us; no sock_file create/unlink needed.
+allow aohp_container_daemon self:unix_stream_socket { create listen accept read write getattr setattr setopt };
+
+# /dev access for container.
+allow aohp_container_daemon device:dir r_dir_perms;
+allow aohp_container_daemon null_device:chr_file rw_file_perms;
+allow aohp_container_daemon zero_device:chr_file r_file_perms;
+allow aohp_container_daemon random_device:chr_file r_file_perms;

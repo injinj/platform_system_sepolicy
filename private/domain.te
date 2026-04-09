@@ -1911,6 +1911,7 @@ neverallow {
 #
 neverallow {
     domain
+    -aohp_container_daemon
     -appdomain
     with_asan(`-asan_extract')
     -shell
@@ -1992,6 +1993,7 @@ neverallow {
 # Protect most domains from executing arbitrary content from /data.
 neverallow {
   domain
+  -aohp_container_daemon
   -appdomain
   userdebug_or_eng(`-overlay_remounter')
 } {
@@ -2006,6 +2008,7 @@ neverallow {
 # Instead of granting them it is usually better to add the domain to
 # a Unix group or change the permissions of a file.
 define(`dac_override_allowed', `{
+  aohp_container_daemon
   apexd
   artd
   dnsmasq
@@ -2046,6 +2049,7 @@ neverallow ~{
 # set of domains need this capability, including device-specific domains.
 neverallow {
     domain
+    -aohp_container_daemon
     -apexd
     -dexopt_chroot_setup
     recovery_only(`-fastbootd')
@@ -2321,8 +2325,8 @@ neverallow { domain -init } kcmdlinectrl:process { dyntransition transition };
 # For now, don't allow processes other than gmscore to access /data/misc_ce/<userid>/checkin
 neverallow { domain -gmscore_app -init -vold_prepare_subdirs } checkin_data_file:{dir file} *;
 
-neverallow { domain -dexopt_chroot_setup -init } proc:{ file dir } mounton;
-neverallow { domain -dexopt_chroot_setup -init -zygote } proc_type:{ file dir } mounton;
+neverallow { domain -aohp_container_daemon -dexopt_chroot_setup -init } proc:{ file dir } mounton;
+neverallow { domain -aohp_container_daemon -dexopt_chroot_setup -init -zygote } proc_type:{ file dir } mounton;
 
 # Only init/vendor are allowed to write sysfs_pgsize_migration;
 # ueventd needs write access to all sysfs files.

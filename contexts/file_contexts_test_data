@@ -191,6 +191,7 @@
 /dev/socket/adbd                                                  adbd_socket
 /dev/socket/aconfigd_mainline                                     aconfigd_mainline_socket
 /dev/socket/aconfigd_system                                       aconfigd_socket
+/dev/socket/aohp_container                                        aohp_container_socket
 /dev/socket/dnsproxyd                                             dnsproxyd_socket
 /dev/socket/dumpstate                                             dumpstate_socket
 /dev/socket/fwmarkd                                               fwmarkd_socket
@@ -310,6 +311,7 @@
 /system/lib/bootstrap/test                                        system_bootstrap_lib_file
 /system/lib64/bootstrap/test                                      system_bootstrap_lib_file
 /system/bin/mm_events                                             mm_events_exec
+/system/bin/aohp-containerd                                       aohp_container_daemon_exec
 /system/bin/atrace                                                atrace_exec
 /system/bin/auditctl                                              auditctl_exec
 /system/bin/bcc                                                   rs_exec
@@ -853,6 +855,8 @@
 /system/product/vendor_overlay/1/test                             vendor_file
 
 /data                                                             system_data_root_file
+/data/aohp                                                        aohp_container_data_file
+/data/aohp/envs/test                                              aohp_container_data_file
 /data/does_not_exist                                              system_data_file
 /data/system/environ                                              environ_system_data_file
 /data/system/environ/test                                         environ_system_data_file
