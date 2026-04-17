@@ -24,8 +24,12 @@ allow aohp_container_daemon self:capability {
     dac_override dac_read_search fowner chown fsetid
 };
 
-# Process operations.
-allow aohp_container_daemon self:process { fork setexec sigchld sigkill sigstop signal };
+# Process operations (setsid for detached services; setpgid for session).
+allow aohp_container_daemon self:process { fork setexec sigchld sigkill sigstop signal setpgid };
+
+# cgroup v2: create child groups and write interface files (no file create on cgroupfs).
+allow aohp_container_daemon cgroup_v2:dir create_dir_perms;
+allow aohp_container_daemon cgroup_v2:file rw_file_perms;
 
 # Container data directory under /data/aohp/.
 allow aohp_container_daemon aohp_container_data_file:dir create_dir_perms;
