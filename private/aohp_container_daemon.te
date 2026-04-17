@@ -34,6 +34,9 @@ allow aohp_container_daemon cgroup_v2:file rw_file_perms;
 # Container data directory under /data/aohp/.
 allow aohp_container_daemon aohp_container_data_file:dir create_dir_perms;
 allow aohp_container_daemon aohp_container_data_file:file create_file_perms;
+# Alpine apk installs packages by hardlinking extracted temp files into place (linkat).
+# Without this, apk reports "Permission denied" / rename failures under etc/terminfo.
+allow aohp_container_daemon aohp_container_data_file:file link;
 allow aohp_container_daemon aohp_container_data_file:lnk_file create_file_perms;
 allow aohp_container_daemon aohp_container_data_file:sock_file create_file_perms;
 allow aohp_container_daemon aohp_container_data_file:fifo_file create_file_perms;
@@ -70,6 +73,10 @@ allow aohp_container_daemon mnt_user_file:lnk_file r_file_perms;
 
 # PTY for interactive shell sessions.
 allow aohp_container_daemon devpts:chr_file { open read write ioctl getattr setattr };
+
+# busybox/apk use TIOCGWINSZ (0x5413) on stdout/stderr pipes and /tmp/.aohp_lastpwd.
+allowxperm aohp_container_daemon self:fifo_file ioctl unpriv_tty_ioctls;
+allowxperm aohp_container_daemon aohp_container_data_file:file ioctl unpriv_tty_ioctls;
 
 # Socket: init creates /dev/socket/aohp_container for us; no sock_file create/unlink needed.
 allow aohp_container_daemon self:unix_stream_socket { create listen accept read write getattr setattr setopt };
