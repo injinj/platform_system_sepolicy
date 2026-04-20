@@ -1,6 +1,16 @@
-# AOHP AgentDriver: debug / adb install builds run as untrusted_app. They still need to
-# resolve AOHP binder services via ServiceManager; each Binder call is permission-gated in
-# system_server (MANAGE_AOHP_VIRTUAL_DISPLAY).
+# AOHP AgentDriver: debug / adb install builds run as untrusted_app. When shipped as a
+# platform-signed priv-app it lands in platform_app (signature wins over privApp in
+# seapp_contexts), and a plain priv-app build lands in priv_app. All three need to
+# resolve AOHP binder services via ServiceManager; each Binder call is permission-gated
+# in system_server (MANAGE_AOHP_VIRTUAL_DISPLAY).
 allow untrusted_app_all aohp_virtual_display_service:service_manager find;
 allow untrusted_app_all aohp_container_service:service_manager find;
 allow untrusted_app_all aohp_agent_view_service:service_manager find;
+
+allow platform_app aohp_virtual_display_service:service_manager find;
+allow platform_app aohp_container_service:service_manager find;
+allow platform_app aohp_agent_view_service:service_manager find;
+
+allow priv_app aohp_virtual_display_service:service_manager find;
+allow priv_app aohp_container_service:service_manager find;
+allow priv_app aohp_agent_view_service:service_manager find;
