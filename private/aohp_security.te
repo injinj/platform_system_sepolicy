@@ -1,0 +1,5 @@
+# AOHP security audit / vault persistence under /data/system/aohp_security
+type aohp_security_data_file, file_type, data_file_type, core_data_file_type;
+
+allow system_server aohp_security_data_file:dir create_dir_perms;
+allow system_server aohp_security_data_file:file create_file_perms;

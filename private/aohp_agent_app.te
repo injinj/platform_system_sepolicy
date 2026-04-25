@@ -6,11 +6,26 @@
 allow untrusted_app_all aohp_virtual_display_service:service_manager find;
 allow untrusted_app_all aohp_container_service:service_manager find;
 allow untrusted_app_all aohp_agent_view_service:service_manager find;
+allow untrusted_app_all aohp_vault_service:service_manager find;
+allow untrusted_app_all aohp_taint_tracker_service:service_manager find;
+allow untrusted_app_all aohp_sensitivity_registry_service:service_manager find;
+allow untrusted_app_all aohp_security_bridge_service:service_manager find;
+allow untrusted_app_all aohp_security_cmd_service:service_manager find;
 
 allow platform_app aohp_virtual_display_service:service_manager find;
 allow platform_app aohp_container_service:service_manager find;
 allow platform_app aohp_agent_view_service:service_manager find;
+allow platform_app aohp_vault_service:service_manager find;
+allow platform_app aohp_taint_tracker_service:service_manager find;
+allow platform_app aohp_sensitivity_registry_service:service_manager find;
+allow platform_app aohp_security_bridge_service:service_manager find;
+allow platform_app aohp_security_cmd_service:service_manager find;
 
 allow priv_app aohp_virtual_display_service:service_manager find;
 allow priv_app aohp_container_service:service_manager find;
 allow priv_app aohp_agent_view_service:service_manager find;
+allow priv_app aohp_vault_service:service_manager find;
+allow priv_app aohp_taint_tracker_service:service_manager find;
+allow priv_app aohp_sensitivity_registry_service:service_manager find;
+allow priv_app aohp_security_bridge_service:service_manager find;
+allow priv_app aohp_security_cmd_service:service_manager find;

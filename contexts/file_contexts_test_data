@@ -860,6 +860,8 @@
 /data/does_not_exist                                              system_data_file
 /data/system/environ                                              environ_system_data_file
 /data/system/environ/test                                         environ_system_data_file
+/data/system/aohp_security/.*    				  aohp_security_data_file
+/data/system/aohp_security/test    				  aohp_security_data_file
 /data/system/packages.list                                        packages_list_file
 /data/system/game_mode_intervention.list                          game_mode_intervention_list_file
 /data/unencrypted                                                 unencrypted_data_file
