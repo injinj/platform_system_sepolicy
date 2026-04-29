@@ -216,6 +216,7 @@ var (
 		"aohp_virtual_display":                                                EXCEPTION_NO_FUZZER,
 		"aohp_agent_view":                                                     EXCEPTION_NO_FUZZER,
 		"aohp_file_bridge":                                                    EXCEPTION_NO_FUZZER,
+		"aohp_event_stream":                                                   EXCEPTION_NO_FUZZER,
 		"app_binding":                                                         EXCEPTION_NO_FUZZER,
 		"app_function":                                                        EXCEPTION_NO_FUZZER,
 		"app_hibernation":                                                     EXCEPTION_NO_FUZZER,
