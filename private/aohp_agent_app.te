@@ -6,11 +6,14 @@
 allow untrusted_app_all aohp_virtual_display_service:service_manager find;
 allow untrusted_app_all aohp_container_service:service_manager find;
 allow untrusted_app_all aohp_agent_view_service:service_manager find;
+allow untrusted_app_all aohp_file_bridge_service:service_manager find;
 
 allow platform_app aohp_virtual_display_service:service_manager find;
 allow platform_app aohp_container_service:service_manager find;
 allow platform_app aohp_agent_view_service:service_manager find;
+allow platform_app aohp_file_bridge_service:service_manager find;
 
 allow priv_app aohp_virtual_display_service:service_manager find;
 allow priv_app aohp_container_service:service_manager find;
 allow priv_app aohp_agent_view_service:service_manager find;
+allow priv_app aohp_file_bridge_service:service_manager find;
