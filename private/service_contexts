@@ -207,6 +207,7 @@ aohp_container                            u:object_r:aohp_container_service:s0
 aohp_agent_view                           u:object_r:aohp_agent_view_service:s0
 aohp_file_bridge                          u:object_r:aohp_file_bridge_service:s0
 aohp_event_stream                         u:object_r:aohp_event_stream_service:s0
+aohp_ad                                   u:object_r:aohp_ad_service:s0
 app_binding                               u:object_r:app_binding_service:s0
 app_function                              u:object_r:app_function_service:s0
 app_hibernation                           u:object_r:app_hibernation_service:s0
