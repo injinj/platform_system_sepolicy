@@ -77,6 +77,9 @@ type aohp_taint_tracker_service,         system_api_service, system_server_servi
 type aohp_sensitivity_registry_service,  system_api_service, system_server_service, service_manager_type;
 type aohp_security_bridge_service,      system_api_service, system_server_service, service_manager_type;
 type aohp_security_cmd_service,         system_api_service, system_server_service, service_manager_type;
+type aohp_file_bridge_service,          system_api_service, system_server_service, service_manager_type;
+type aohp_event_stream_service,         system_api_service, system_server_service, service_manager_type;
+type aohp_ad_service,                   system_api_service, system_server_service, service_manager_type;
 
 until_board_api(202604, `
 type hal_bluetooth_lpp_service, protected_service, hal_service_type, service_manager_type;

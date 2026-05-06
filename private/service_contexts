@@ -210,6 +210,9 @@ aohp_taint                                u:object_r:aohp_taint_tracker_service:
 aohp_sensitivity_registry                 u:object_r:aohp_sensitivity_registry_service:s0
 aohp_security_bridge                      u:object_r:aohp_security_bridge_service:s0
 aohp_security_cmd                         u:object_r:aohp_security_cmd_service:s0
+aohp_file_bridge                          u:object_r:aohp_file_bridge_service:s0
+aohp_event_stream                         u:object_r:aohp_event_stream_service:s0
+aohp_ad                                   u:object_r:aohp_ad_service:s0
 app_binding                               u:object_r:app_binding_service:s0
 app_function                              u:object_r:app_function_service:s0
 app_hibernation                           u:object_r:app_hibernation_service:s0
