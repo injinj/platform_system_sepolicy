@@ -205,6 +205,11 @@ starting_at_board_api(202604, `
 aohp_virtual_display                      u:object_r:aohp_virtual_display_service:s0
 aohp_container                            u:object_r:aohp_container_service:s0
 aohp_agent_view                           u:object_r:aohp_agent_view_service:s0
+aohp_vault                                u:object_r:aohp_vault_service:s0
+aohp_taint                                u:object_r:aohp_taint_tracker_service:s0
+aohp_sensitivity_registry                 u:object_r:aohp_sensitivity_registry_service:s0
+aohp_security_bridge                      u:object_r:aohp_security_bridge_service:s0
+aohp_security_cmd                         u:object_r:aohp_security_cmd_service:s0
 aohp_file_bridge                          u:object_r:aohp_file_bridge_service:s0
 aohp_event_stream                         u:object_r:aohp_event_stream_service:s0
 aohp_ad                                   u:object_r:aohp_ad_service:s0

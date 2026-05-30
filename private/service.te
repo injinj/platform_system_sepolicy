@@ -72,6 +72,11 @@ type theme_service,                     system_server_service, service_manager_t
 type aohp_virtual_display_service,      system_api_service, system_server_service, service_manager_type;
 type aohp_container_service,            system_api_service, system_server_service, service_manager_type;
 type aohp_agent_view_service,           system_api_service, system_server_service, service_manager_type;
+type aohp_vault_service,                 system_api_service, system_server_service, service_manager_type;
+type aohp_taint_tracker_service,         system_api_service, system_server_service, service_manager_type;
+type aohp_sensitivity_registry_service,  system_api_service, system_server_service, service_manager_type;
+type aohp_security_bridge_service,      system_api_service, system_server_service, service_manager_type;
+type aohp_security_cmd_service,         system_api_service, system_server_service, service_manager_type;
 type aohp_file_bridge_service,          system_api_service, system_server_service, service_manager_type;
 type aohp_event_stream_service,         system_api_service, system_server_service, service_manager_type;
 type aohp_ad_service,                   system_api_service, system_server_service, service_manager_type;
