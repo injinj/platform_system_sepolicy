@@ -32,6 +32,12 @@ allow aohp_container_daemon self:process { fork setexec sigchld sigkill sigstop 
 # turn disables WebAssembly and breaks fetch(). Same grant as webview_zygote / hal_drm.
 allow aohp_container_daemon self:process execmem;
 
+# Mount-namespace isolation for container children (unshare + make-rslave /), as zygote does.
+# Without mounton on rootfs the MS_SLAVE step fails and child bind mounts propagate to the host.
+allow aohp_container_daemon rootfs:dir mounton;
+# Node reads /proc/meminfo for heap sizing.
+allow aohp_container_daemon proc_meminfo:file r_file_perms;
+
 # cgroup v2: create child groups and write interface files (no file create on cgroupfs).
 allow aohp_container_daemon cgroup_v2:dir create_dir_perms;
 allow aohp_container_daemon cgroup_v2:file rw_file_perms;
