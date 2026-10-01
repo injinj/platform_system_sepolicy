@@ -26,6 +26,11 @@ allow aohp_container_daemon self:capability {
 
 # Process operations (setsid for detached services; setpgid for session).
 allow aohp_container_daemon self:process { fork setexec sigchld sigkill sigstop signal setpgid };
+# Container workloads (Node/V8 JIT, WebAssembly for fetch/undici, Python JITs) need anonymous
+# executable memory. Without this every PROT_EXEC mmap/mprotect fails with EACCES and V8 aborts
+# ("Check failed: 12 == errno"); the historical workaround was NODE_OPTIONS=--jitless, which in
+# turn disables WebAssembly and breaks fetch(). Same grant as webview_zygote / hal_drm.
+allow aohp_container_daemon self:process execmem;
 
 # cgroup v2: create child groups and write interface files (no file create on cgroupfs).
 allow aohp_container_daemon cgroup_v2:dir create_dir_perms;
