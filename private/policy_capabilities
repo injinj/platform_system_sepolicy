@@ -19,5 +19,8 @@ policycap extended_socket_class;
 #
 policycap nnp_nosuid_transition;
 
-# Enable per-file labels in functionfs
-policycap functionfs_seclabel;
+# Enable per-file labels in functionfs.
+# Disabled: the policycap is only known to Linux >= 6.17; kernels without it
+# (e.g. android15-6.6 GKI on OnePlus 13) reject the whole policy as an unknown
+# policy capability and init fatal-reboots ("Could not load policy").
+# policycap functionfs_seclabel;
