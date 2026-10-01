@@ -97,3 +97,20 @@ allow aohp_container_daemon device:dir r_dir_perms;
 allow aohp_container_daemon null_device:chr_file rw_file_perms;
 allow aohp_container_daemon zero_device:chr_file r_file_perms;
 allow aohp_container_daemon random_device:chr_file r_file_perms;
+
+# --- Container networking (VPN / WireGuard / routing from inside the sandbox) ---
+# Matching rc: capabilities += CHOWN FSETID NET_ADMIN NET_RAW. CAP_CHOWN/FSETID were already
+# allowed here but absent from the rc bounding set, so dpkg-statoverride/useradd-style chown
+# failed with EPERM (dbus postinst). NET_ADMIN/NET_RAW let the agent create and configure
+# interfaces (wg0, tun), addresses, routes, rules and firewall marks.
+allow aohp_container_daemon self:capability { net_admin net_raw };
+allow aohp_container_daemon self:netlink_route_socket { create_socket_perms_no_ioctl nlmsg_read nlmsg_write };
+allow aohp_container_daemon self:netlink_generic_socket create_socket_perms_no_ioctl;
+allow aohp_container_daemon self:netlink_netfilter_socket create_socket_perms_no_ioctl;
+allow aohp_container_daemon self:netlink_xfrm_socket { create_socket_perms_no_ioctl nlmsg_read nlmsg_write };
+allow aohp_container_daemon self:tun_socket create_socket_perms_no_ioctl;
+allow aohp_container_daemon self:rawip_socket create_socket_perms_no_ioctl;
+allow aohp_container_daemon self:packet_socket create_socket_perms_no_ioctl;
+allow aohp_container_daemon tun_device:chr_file rw_file_perms;
+# sysctl: net.ipv4.ip_forward, rp_filter, src_valid_mark (wg-quick) etc.
+allow aohp_container_daemon proc_net_type:file rw_file_perms;
