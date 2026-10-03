@@ -3,7 +3,10 @@
 ### environments for the AOHP agent app.
 ###
 
-type aohp_container_daemon, domain, coredomain;
+# mlstrustedsubject: read-only probing of app processes (/proc/<pid>/stat of an
+# untrusted_app at s0:c512,c768) is otherwise refused by the MLS dominance constraint even
+# with the type-enforcement rules below; same attribute storaged/lmkd/dumpstate carry.
+type aohp_container_daemon, domain, coredomain, mlstrustedsubject;
 type aohp_container_daemon_exec, exec_type, file_type, system_file_type;
 type aohp_container_data_file, file_type, data_file_type, core_data_file_type;
 
@@ -26,6 +29,18 @@ allow aohp_container_daemon self:capability {
 
 # Process operations (setsid for detached services; setpgid for session).
 allow aohp_container_daemon self:process { fork setexec sigchld sigkill sigstop signal setpgid };
+
+# Read-only process probing of host pids from inside a container (ps, pidof, pgrep,
+# lock/lease liveness checks such as OpenClaw's agent_database_leases "is pid N alive?").
+# The container shares the host pid namespace, so a probe targets every domain:
+#  - kill(pid, 0) is process:signull; without it the probe fails EPERM (not ESRCH), so a
+#    dead-and-recycled pid looks alive and the gateway refuses to start after an unclean reboot.
+#  - /proc/<pid>/{stat,status,cmdline} are labeled with the target's domain (dir search/read,
+#    file open/read/getattr); cmdline additionally takes the ptrace_may_access(PTRACE_MODE_READ)
+#    path, which SELinux maps to domain:file read. process:getattr is /proc/<pid>/attr for ps -Z.
+# No ptrace, no signal delivery, no writes. Same read-only set as storaged/lmkd/dumpstate.
+allow aohp_container_daemon domain:process { signull getattr };
+r_dir_file(aohp_container_daemon, domain)
 # Container workloads (Node/V8 JIT, WebAssembly for fetch/undici, Python JITs) need anonymous
 # executable memory. Without this every PROT_EXEC mmap/mprotect fails with EACCES and V8 aborts
 # ("Check failed: 12 == errno"); the historical workaround was NODE_OPTIONS=--jitless, which in
